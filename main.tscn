@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bel3gb08qt5et"]
+
+[ext_resource type="Script" path="res://scripts/Stocks.cs" id="1_4tysn"]
+[ext_resource type="Script" path="res://scripts/Stocks/StockUpdater.cs" id="2_2bann"]
+[ext_resource type="Script" path="res://scripts/Stocks/Display.cs" id="3_v4dfv"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Button" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="MainCamera" type="Camera2D" parent="."]
+
+[node name="Stocks" type="Node2D" parent="."]
+script = ExtResource("1_4tysn")
+
+[node name="StockUpdater" type="Timer" parent="Stocks"]
+autostart = true
+script = ExtResource("2_2bann")
+
+[node name="Display" type="GridContainer" parent="Stocks"]
+offset_left = -725.0
+offset_top = -415.0
+offset_right = 717.0
+offset_bottom = 427.0
+columns = 3
+script = ExtResource("3_v4dfv")
