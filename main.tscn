@@ -1,28 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://bel3gb08qt5et"]
+[gd_scene format=3 uid="uid://cmkj16igh824y"]
 
-[ext_resource type="Script" path="res://scripts/Stocks.cs" id="1_4tysn"]
-[ext_resource type="Script" path="res://scripts/Stocks/StockUpdater.cs" id="2_2bann"]
-[ext_resource type="Script" path="res://scripts/Stocks/Display.cs" id="3_v4dfv"]
+[ext_resource type="Script" uid="uid://cpt8xt2lhcewk" path="res://scripts/Stocks.cs" id="1_4tysn"]
+[ext_resource type="Script" uid="uid://dh4iqc0v8770q" path="res://scripts/Stocks/StockUpdater.cs" id="2_2bann"]
+[ext_resource type="Script" uid="uid://dhtrkaj5qsay3" path="res://scripts/Stocks/Display.cs" id="3_v4dfv"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=72649775]
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1886804912]
 offset_right = 8.0
 offset_bottom = 8.0
 
-[node name="MainCamera" type="Camera2D" parent="."]
+[node name="MainCamera" type="Camera2D" parent="." unique_id=921228822]
 
-[node name="Stocks" type="Node2D" parent="."]
+[node name="Stocks" type="Node2D" parent="." unique_id=677051031]
 script = ExtResource("1_4tysn")
 
-[node name="StockUpdater" type="Timer" parent="Stocks"]
+[node name="StockUpdater" type="Timer" parent="Stocks" unique_id=94627591]
 autostart = true
 script = ExtResource("2_2bann")
 
-[node name="Display" type="GridContainer" parent="Stocks"]
+[node name="Display" type="GridContainer" parent="Stocks" unique_id=1987266093]
 offset_left = -725.0
 offset_top = -415.0
 offset_right = 717.0
 offset_bottom = 427.0
 columns = 3
 script = ExtResource("3_v4dfv")
+
+[node name="CurrentStock1" type="Label" parent="Stocks/Display" unique_id=1112326917]
+layout_mode = 2
+
+[node name="CurrentStock2" type="Label" parent="Stocks/Display" unique_id=427894135]
+layout_mode = 2
+
+[node name="CurrentStock3" type="Label" parent="Stocks/Display" unique_id=852557636]
+layout_mode = 2
+
+[node name="CurrentStock4" type="Label" parent="Stocks/Display" unique_id=507019025]
+layout_mode = 2
+
+[node name="CurrentStock5" type="Label" parent="Stocks/Display" unique_id=942844935]
+layout_mode = 2
+
+[node name="CurrentStock6" type="Label" parent="Stocks/Display" unique_id=1338002099]
+layout_mode = 2
