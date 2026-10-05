@@ -19,19 +19,28 @@ script = ExtResource("1_4tysn")
 autostart = true
 script = ExtResource("2_2bann")
 
-[node name="Display" type="GridContainer" parent="Stocks" unique_id=1987266093]
-offset_left = -725.0
-offset_top = -415.0
-offset_right = 717.0
-offset_bottom = 427.0
+[node name="Display" type="GridContainer" parent="Stocks" unique_id=1987266093 node_paths=PackedStringArray("_stocksNode")]
+custom_minimum_size = Vector2(100, 20)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -863.0
+offset_top = -482.0
+offset_right = 835.0
+offset_bottom = 440.0
+grow_horizontal = 2
+grow_vertical = 2
 columns = 3
 script = ExtResource("3_v4dfv")
+_stocksNode = NodePath("..")
 
 [node name="CurrentStock1" type="Label" parent="Stocks/Display" unique_id=1112326917]
 layout_mode = 2
+text = "e"
 
 [node name="CurrentStock2" type="Label" parent="Stocks/Display" unique_id=427894135]
 layout_mode = 2
+text = "e"
 
 [node name="CurrentStock3" type="Label" parent="Stocks/Display" unique_id=852557636]
 layout_mode = 2

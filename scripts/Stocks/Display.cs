@@ -4,15 +4,24 @@ using Godot;
 
 public partial class Display : GridContainer
 {
+    [Export]
+    private Stocks _stocksNode;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
-		GD.Print(this.GetChildren());
-        //Label stockFromGodot = GetNode<Label>("CurrentStock1");
+        _stocksNode.StocksReady += DisplayStocks;
+        
+    }
+    public void DisplayStocks()
+    {
+        int pageNum = 1;
         foreach(Label stockFromGodot in GetChildren())
         {
-            GD.Print(stockFromGodot.Name);
-            GD.Print("There are nodes!");
+            string stockNum = stockFromGodot.Name;
+            stockNum = stockNum.Replace("CurrentStock", "");
+            int stockNumInt = Int32.Parse(stockNum);
+            stockFromGodot.Text = Stocks.stocksDict[stockNumInt];
         }
     }
 

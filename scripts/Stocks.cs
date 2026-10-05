@@ -4,14 +4,16 @@ using Godot;
 
 public partial class Stocks : Node
 {
-
+	public static int availableStockId = 0;
 	private Label StockGodot;
 	private Label stockTitle;
 	private int stockIdIndicator = 0;
 	public static List<string> stockList = new List<string>() { ""};
 	public static Dictionary<int, string> stocksDict = new Dictionary<int, string>();
-	private List<int> stockId = new List<int>() { };
-
+    private List<int> stockId = new List<int>() { };
+    
+    [Signal]
+    public delegate void StocksReadyEventHandler();
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
@@ -22,6 +24,7 @@ public partial class Stocks : Node
         Stock epsilonCo = new Stock("Epsilon Co.", 1, "SMT.APC", 50, 60, 50);
         Stock zetaCo = new Stock("Zeta Co.", 1, "SMT.APC", 50, 60, 50);
         
+        EmitSignal(SignalName.StocksReady);
         /*
 		// For when configs are actually made
 		// Loops through each stock in stockList
@@ -54,18 +57,22 @@ public partial class Stocks : Node
 public class Stock
 {
 	string name;
-	int id;
+	int gameId;
     string stockCode;
     float volatility; // This is a percentage
     float buyPrice;
 	float sellPrice;
-	public Stock(string name, int id, string stockCode, float volatility, float buyPrice, float sellPrice)
-	{
+	public Stock(string name, int gameId, string stockCode, float volatility, float buyPrice, float sellPrice)
+    {
+    	Stocks.availableStockId++;
+    	
 		this.name = name;
-		this.id = id;
+		this.gameId = Stocks.availableStockId;
         this.stockCode = stockCode;
         this.volatility = volatility;
         this.buyPrice = buyPrice;
-		this.sellPrice = sellPrice;
+        this.sellPrice = sellPrice;
+        
+        Stocks.stocksDict.Add(this.gameId, this.name);
 	}
 }
