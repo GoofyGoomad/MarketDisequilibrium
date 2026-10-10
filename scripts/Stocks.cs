@@ -18,6 +18,16 @@ public partial class Stocks : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
+		SqliteHelpers.ExecuteSQLCommand("DROP TABLE IF EXISTS Stocks");
+        SqliteHelpers.ExecuteSQLCommand(@"CREATE TABLE Stocks (
+		Id int PRIMARY KEY, 
+		Name VARCHAR(10) NOT NULL,
+		Code VARCHAR(15) NOT NULL,
+		Volatility INT(3) NOT NULL,
+		Buy_Price INT(255) NOT NULL,
+		Sell_Price INT(255) NOT NULL
+		);");
+
         Stock alphaCo = new Stock("alphaCo", "Alpha Co.", 1, "SMT.APC", 50, 60, 50);
 		Stock betaCo = new Stock("betaCo", "Beta Co.", 1, "SMT.BPC", 50, 60, 50);
         Stock gammaCo = new Stock("gammaCo", "Gamma Co.", 1, "SMT.GPC", 50, 60, 50);
