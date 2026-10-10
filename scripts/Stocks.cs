@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Collections.Generic;
 using Godot;
 
@@ -17,12 +18,12 @@ public partial class Stocks : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
-        Stock alphaCo = new Stock("Alpha Co.", 1, "SMT.APC", 50, 60, 50);
-		Stock betaCo = new Stock("Beta Co.", 1, "SMT.APC", 50, 60, 50);
-        Stock gammaCo = new Stock("Gamma Co.", 1, "SMT.APC", 50, 60, 50);
-        Stock deltaCo = new Stock("Delta Co.", 1, "SMT.APC", 50, 60, 50);
-        Stock epsilonCo = new Stock("Epsilon Co.", 1, "SMT.APC", 50, 60, 50);
-        Stock zetaCo = new Stock("Zeta Co.", 1, "SMT.APC", 50, 60, 50);
+        Stock alphaCo = new Stock("alphaCo", "Alpha Co.", 1, "SMT.APC", 50, 60, 50);
+		Stock betaCo = new Stock("betaCo", "Beta Co.", 1, "SMT.BPC", 50, 60, 50);
+        Stock gammaCo = new Stock("gammaCo", "Gamma Co.", 1, "SMT.GPC", 50, 60, 50);
+        Stock deltaCo = new Stock("deltaCo", "Delta Co.", 1, "SMT.DPC", 50, 60, 50);
+        Stock epsilonCo = new Stock("epsilonCo", "Epsilon Co.", 1, "SMT.EPC", 50, 60, 50);
+        Stock zetaCo = new Stock("zetaCo", "Zeta Co.", 1, "SMT.ZPC", 50, 60, 50);
         
         EmitSignal(SignalName.StocksReady);
         /*
@@ -56,16 +57,17 @@ public partial class Stocks : Node
 }
 public class Stock
 {
+	string codeName;
 	string name;
 	int gameId;
     string stockCode;
     float volatility; // This is a percentage
     float buyPrice;
 	float sellPrice;
-	public Stock(string name, int gameId, string stockCode, float volatility, float buyPrice, float sellPrice)
+	public Stock(string codeName, string name, int gameId, string stockCode, float volatility, float buyPrice, float sellPrice)
     {
     	Stocks.availableStockId++;
-    	
+    	this.codeName = codeName;
 		this.name = name;
 		this.gameId = Stocks.availableStockId;
         this.stockCode = stockCode;
@@ -73,6 +75,6 @@ public class Stock
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
         
-        Stocks.stocksDict.Add(this.gameId, this.name);
+        Stocks.stocksDict.Add(this.gameId, this.codeName);
 	}
 }

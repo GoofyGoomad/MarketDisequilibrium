@@ -6,10 +6,6 @@
 
 [node name="Game" type="Node2D" unique_id=72649775]
 
-[node name="Button" type="Button" parent="." unique_id=1886804912]
-offset_right = 8.0
-offset_bottom = 8.0
-
 [node name="MainCamera" type="Camera2D" parent="." unique_id=921228822]
 
 [node name="Stocks" type="Node2D" parent="." unique_id=677051031]
@@ -30,26 +26,40 @@ offset_right = 835.0
 offset_bottom = 440.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 700
+theme_override_constants/v_separation = 550
 columns = 3
 script = ExtResource("3_v4dfv")
 _stocksNode = NodePath("..")
 
-[node name="CurrentStock1" type="Label" parent="Stocks/Display" unique_id=1112326917]
+[node name="CurrentStock1" type="Label" parent="Stocks/Display" unique_id=1166709186]
 layout_mode = 2
 text = "e"
+horizontal_alignment = 1
 
-[node name="CurrentStock2" type="Label" parent="Stocks/Display" unique_id=427894135]
+[node name="CurrentStock2" type="Label" parent="Stocks/Display" unique_id=1498874696]
 layout_mode = 2
 text = "e"
+horizontal_alignment = 1
 
-[node name="CurrentStock3" type="Label" parent="Stocks/Display" unique_id=852557636]
+[node name="CurrentStock3" type="Label" parent="Stocks/Display" unique_id=283261612]
 layout_mode = 2
+text = "e"
+horizontal_alignment = 1
 
-[node name="CurrentStock4" type="Label" parent="Stocks/Display" unique_id=507019025]
+[node name="CurrentStock4" type="Label" parent="Stocks/Display" unique_id=515126670]
 layout_mode = 2
+text = "e"
+horizontal_alignment = 1
 
-[node name="CurrentStock5" type="Label" parent="Stocks/Display" unique_id=942844935]
+[node name="CurrentStock5" type="Label" parent="Stocks/Display" unique_id=967966948]
 layout_mode = 2
+text = "e"
+horizontal_alignment = 1
 
-[node name="CurrentStock6" type="Label" parent="Stocks/Display" unique_id=1338002099]
+[node name="CurrentStock6" type="Label" parent="Stocks/Display" unique_id=1663576374]
 layout_mode = 2
+text = "e"
+horizontal_alignment = 1
