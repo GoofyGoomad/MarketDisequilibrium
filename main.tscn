@@ -1,12 +1,15 @@
 [gd_scene format=3 uid="uid://cmkj16igh824y"]
 
+[ext_resource type="Script" uid="uid://t3hdq6r05vnq" path="res://scripts/Main.cs" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cpt8xt2lhcewk" path="res://scripts/Stocks.cs" id="1_4tysn"]
 [ext_resource type="Script" uid="uid://dh4iqc0v8770q" path="res://scripts/Stocks/StockUpdater.cs" id="2_2bann"]
 [ext_resource type="Script" uid="uid://dhtrkaj5qsay3" path="res://scripts/Stocks/Display.cs" id="3_v4dfv"]
 
 [node name="Game" type="Node2D" unique_id=72649775]
+script = ExtResource("1_1bvp3")
 
 [node name="MainCamera" type="Camera2D" parent="." unique_id=921228822]
+offset = Vector2(1920, 0)
 
 [node name="Stocks" type="Node2D" parent="." unique_id=677051031]
 script = ExtResource("1_4tysn")
@@ -63,3 +66,13 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "e"
 horizontal_alignment = 1
+
+[node name="DevTools" type="Node2D" parent="." unique_id=968751888]
+
+[node name="Label" type="Label" parent="DevTools" unique_id=1910596089]
+offset_left = 1550.0
+offset_top = -477.0
+offset_right = 2141.0
+offset_bottom = -253.0
+theme_override_font_sizes/font_size = 40
+text = "Add Stock"
