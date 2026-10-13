@@ -69,10 +69,18 @@ horizontal_alignment = 1
 
 [node name="DevTools" type="Node2D" parent="." unique_id=968751888]
 
-[node name="Label" type="Label" parent="DevTools" unique_id=1910596089]
-offset_left = 1550.0
-offset_top = -477.0
-offset_right = 2141.0
-offset_bottom = -253.0
+[node name="StockAdder" type="Node2D" parent="DevTools" unique_id=1907655723]
+
+[node name="Label" type="Label" parent="DevTools/StockAdder" unique_id=1910596089]
+offset_left = 1835.0
+offset_top = -473.0
+offset_right = 2426.0
+offset_bottom = -249.0
 theme_override_font_sizes/font_size = 40
 text = "Add Stock"
+
+[node name="LineEdit" type="LineEdit" parent="DevTools/StockAdder" unique_id=1086968160]
+offset_left = 1572.0
+offset_top = -361.0
+offset_right = 2305.0
+offset_bottom = -285.0

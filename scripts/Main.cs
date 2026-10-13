@@ -18,13 +18,13 @@ public partial class Main : Node2D
 	{
 		if (@event.IsActionPressed("OpenDevTools"))
         {
-        	Camera2D mainCamera = GetNode<Camera2D>("MainCamera");
-            if (DevToolsToggledOn == false)
+			Camera2D mainCamera = GetNode<Camera2D>("MainCamera");
+            if (!DevToolsToggledOn)
             {
 				DevToolsToggledOn = true;
                 GD.Print("Dev Tools Opened!");
                 mainCamera.Offset = new Vector2(1920, 0);
-            } else if (DevToolsToggledOn == true)
+            } else if (DevToolsToggledOn)
             {
                 DevToolsToggledOn = false;
                 GD.Print("Dev Tools Closed!");
