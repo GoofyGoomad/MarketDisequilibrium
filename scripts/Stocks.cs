@@ -1,6 +1,7 @@
 using System;
-using System.Reflection;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using Godot;
 
 public partial class Stocks : Node
@@ -28,14 +29,32 @@ public partial class Stocks : Node
 		Sell_Price INT(255) NOT NULL
 		);");
 
-        Stock alphaCo = new Stock("alphaCo", "Alpha Co.", 1, "SMT.APC", 50, 60, 50);
-		Stock betaCo = new Stock("betaCo", "Beta Co.", 1, "SMT.BPC", 50, 60, 50);
-        Stock gammaCo = new Stock("gammaCo", "Gamma Co.", 1, "SMT.GPC", 50, 60, 50);
-        Stock deltaCo = new Stock("deltaCo", "Delta Co.", 1, "SMT.DPC", 50, 60, 50);
-        Stock epsilonCo = new Stock("epsilonCo", "Epsilon Co.", 1, "SMT.EPC", 50, 60, 50);
-        Stock zetaCo = new Stock("zetaCo", "Zeta Co.", 1, "SMT.ZPC", 50, 60, 50);
-        
-        EmitSignal(SignalName.StocksReady);
+        string[] stockFileList = Directory.GetFiles("config/stocks/", "*.cfg", SearchOption.AllDirectories);
+		Array.Sort(stockFileList);
+        foreach (string stockFile in stockFileList)
+        {
+            GD.Print("Reading file: " + Path.GetFileName(stockFile));
+            Stocks.availableStockId++;
+            StreamReader fileReader = new StreamReader(stockFile);
+            string stockName = fileReader.ReadLine();
+            string stockCode = fileReader.ReadLine();
+            int volatility = Int32.Parse(fileReader.ReadLine());
+            int buyPrice = Int32.Parse(fileReader.ReadLine());
+            int sellPrice = Int32.Parse(fileReader.ReadLine());
+            fileReader.Close();
+            SqliteHelpers.ExecuteSQLCommand($"INSERT INTO Stocks VALUES ('{Stocks.availableStockId}', '{stockName}', '{stockCode}', '{volatility}', '{buyPrice}', '{sellPrice}');");
+
+        }
+            //SqliteHelpers.ExecuteSQLCommand(@$"");
+            /*
+            Stock alphaCo = new Stock("alphaCo", "Alpha Co.", 1, "SMT.APC", 50, 60, 50);
+            Stock betaCo = new Stock("betaCo", "Beta Co.", 1, "SMT.BTC", 50, 60, 50);
+            Stock gammaCo = new Stock("gammaCo", "Gamma Co.", 1, "SMT.GPC", 50, 60, 50);
+            Stock deltaCo = new Stock("deltaCo", "Delta Co.", 1, "SMT.DPC", 50, 60, 50);
+            Stock epsilonCo = new Stock("epsilonCo", "Epsilon Co.", 1, "SMT.EPC", 50, 60, 50);
+            Stock zetaCo = new Stock("zetaCo", "Zeta Co.", 1, "SMT.ZPC", 50, 60, 50);
+            */
+            EmitSignal(SignalName.StocksReady);
         /*
 		// For when configs are actually made
 		// Loops through each stock in stockList

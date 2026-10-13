@@ -1,6 +1,6 @@
 using System;
-using System.Reflection;
 using System.Collections.Generic;
+using System.Reflection;
 using Godot;
 
 
@@ -22,21 +22,11 @@ public partial class Display : GridContainer
 	{
 		int pageNum = 1;
 		foreach(Label stockFromGodot in GetChildren())
-		{
-			string stockNum = stockFromGodot.Name;
+        {
+            string stockNum = stockFromGodot.Name;
 			stockNum = stockNum.Replace("CurrentStock", "");
-			int stockNumInt = Int32.Parse(stockNum);
-			Type stockInCode = Type.GetType($"Stocks.{Stocks.stocksDict[stockNumInt]}");
-			GD.Print($"Stocks.{Stocks.stocksDict[stockNumInt]}");
-			GD.Print("hello?");
-			GD.Print($"{stockInCode}");
-			GD.Print(stockInCode);
-			//GD.Print($"{Stocks.stocksDict}");
-			//Stocks.alphaco;
-            GD.Print(Stocks.stocksDict[1]);
-			//GD.Print(Stocks.stocksDict[stockNumInt]);
-			//stockFromGodot.Text = Type.GetType(Stocks.stocksDict[stockNumInt]).GetProperty("name").ToString(); //(string)typeof(Stock).GetProperty("name").GetValue(stockFromCode, null);
-		}
+            stockFromGodot.Text = SqliteHelpers.GetValue("Stocks", "Id", stockNum);
+        }
 	}
 	/*
 	public static string GrabAttrFromDict(Stock theClass, string theAttr)
@@ -47,4 +37,4 @@ public partial class Display : GridContainer
 		//return theValue;
 	}
 */
-}
+        }
