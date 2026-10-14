@@ -18,15 +18,20 @@ script = ExtResource("1_4tysn")
 autostart = true
 script = ExtResource("2_2bann")
 
-[node name="Display" type="GridContainer" parent="Stocks" unique_id=1987266093 node_paths=PackedStringArray("_stocksNode")]
+[node name="DisplayEnabler" type="VisibleOnScreenEnabler2D" parent="Stocks" unique_id=1489459279]
+position = Vector2(1835, -473)
+rect = Rect2(-2698, -9, 1689, 922)
+enable_node_path = NodePath("Display")
+
+[node name="Display" type="GridContainer" parent="Stocks/DisplayEnabler" unique_id=1987266093 node_paths=PackedStringArray("_stocksNode")]
 custom_minimum_size = Vector2(100, 20)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -863.0
-offset_top = -482.0
-offset_right = 835.0
-offset_bottom = 440.0
+offset_left = -2698.0
+offset_top = -9.0
+offset_right = -1000.0
+offset_bottom = 913.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -35,37 +40,7 @@ theme_override_constants/h_separation = 700
 theme_override_constants/v_separation = 550
 columns = 3
 script = ExtResource("3_v4dfv")
-_stocksNode = NodePath("..")
-
-[node name="CurrentStock1" type="Label" parent="Stocks/Display" unique_id=1166709186]
-layout_mode = 2
-text = "e"
-horizontal_alignment = 1
-
-[node name="CurrentStock2" type="Label" parent="Stocks/Display" unique_id=1498874696]
-layout_mode = 2
-text = "e"
-horizontal_alignment = 1
-
-[node name="CurrentStock3" type="Label" parent="Stocks/Display" unique_id=283261612]
-layout_mode = 2
-text = "e"
-horizontal_alignment = 1
-
-[node name="CurrentStock4" type="Label" parent="Stocks/Display" unique_id=515126670]
-layout_mode = 2
-text = "e"
-horizontal_alignment = 1
-
-[node name="CurrentStock5" type="Label" parent="Stocks/Display" unique_id=967966948]
-layout_mode = 2
-text = "e"
-horizontal_alignment = 1
-
-[node name="CurrentStock6" type="Label" parent="Stocks/Display" unique_id=1663576374]
-layout_mode = 2
-text = "e"
-horizontal_alignment = 1
+_stocksNode = NodePath("../..")
 
 [node name="DevTools" type="Node2D" parent="." unique_id=968751888]
 
@@ -84,3 +59,12 @@ offset_left = 1572.0
 offset_top = -361.0
 offset_right = 2305.0
 offset_bottom = -285.0
+
+[node name="CurrentStockExample" type="Label" parent="DevTools/StockAdder" unique_id=1166709186]
+visible = false
+offset_left = -863.0
+offset_top = -482.0
+offset_right = -853.0
+offset_bottom = -459.0
+text = "e"
+horizontal_alignment = 1

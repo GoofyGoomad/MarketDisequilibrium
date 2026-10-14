@@ -1,3 +1,5 @@
 {
-    "oneDarkPro.editorTheme": "Retro"
+    "oneDarkPro.editorTheme": "Retro",
+    "editor.fontFamily": "' Google Sans Code', 'Droid Sans Mono', monospace",
+    "editor.fontSize": 16
 }
