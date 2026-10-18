@@ -65,7 +65,7 @@ public partial class Stocks : Node
     {
 		using var connection = new SqliteConnection("Data Source=temp-storage/stocks.sqlite3");
 		connection.Open();
-		using var sqlCommand = new SqliteCommand($"SELECT * FROM Stocks WHERE Id='{id}'", connection);
+		using var sqlCommand = new SqliteCommand($"UPDATE Stocks SET Stocks WHERE Id='{id}'", connection);
 		var sqlOutput = sqlCommand.ExecuteReader();
 	}
 }
