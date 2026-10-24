@@ -9,10 +9,10 @@
 script = ExtResource("1_1bvp3")
 
 [node name="BalanceDisplay" type="Label" parent="." unique_id=1236639591]
-offset_left = -444.0
-offset_top = -464.0
-offset_right = 402.0
-offset_bottom = -382.0
+offset_left = -75.0
+offset_top = -524.0
+offset_right = 771.0
+offset_bottom = -500.0
 
 [node name="MainCamera" type="Camera2D" parent="." unique_id=921228822]
 offset = Vector2(1920, 0)

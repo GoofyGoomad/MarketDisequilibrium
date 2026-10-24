@@ -1,5 +1,6 @@
 1. Stock name
 2. Stock code
-3. Stock volatility (it is an integer but actually represents a percentage)
+3. Stock volatility (it may be an integer but it actually represents a percentage)
 4. Buy price
 5. Sell price
+6. Dividend payout (it may be an integer but it actually represents a percentage)

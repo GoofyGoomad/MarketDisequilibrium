@@ -32,7 +32,7 @@ public partial class Display : GridContainer
 		{
 			Label godotStock = new Label();
 			godotStock.Name = $"CurrentStock{i}";
-			godotStock.Text = "Empty";
+			godotStock.Text = Stocks.GetDBValue($"{i}", 1);
 			AddChild(godotStock);
 
 			Label stockBuyPrice = new Label();
@@ -45,6 +45,21 @@ public partial class Display : GridContainer
 			stockSellPrice.Text = $"{Stocks.GetDBValue($"{i}", 5)}";
 			godotStock.AddChild(stockSellPrice);
 			
+
+			Button buyStock = new Button();
+			buyStock.Name = $"BuyStock{i}";
+			buyStock.Text = "Buy Stock";
+			godotStock.AddChild(buyStock);
+			
+			Button sellStock = new Button();
+			sellStock.Name = $"SellStock{i}";
+			sellStock.Text = "Sell Stock";
+			godotStock.AddChild(sellStock);
+			
+			Label stockAvailability = new Label();
+			stockAvailability.Name = $"Availability{i}";
+			stockAvailability.Text = "0";
+			godotStock.AddChild(stockAvailability);
 		}
 		GD.Print(GetChildren());
 		foreach(Label stockFromGodot in GetChildren())
@@ -54,11 +69,15 @@ public partial class Display : GridContainer
 			stockNum = stockNum.Replace("CurrentStock", "");
 			Label stockBuyPrice = stockFromGodot.GetNode<Label>($"BuyPrice{stockNum}");
 			Label stockSellPrice = stockFromGodot.GetNode<Label>($"SellPrice{stockNum}");
-			
-			stockBuyPrice.Position = new Vector2 (0 - 70, 0 + 70);
-			stockSellPrice.Position = new Vector2 (0 + 100, 0 + 70);
+			Button buyStock = stockFromGodot.GetNode<Button>($"BuyStock{stockNum}");
+			Button sellStock = stockFromGodot.GetNode<Button>($"SellStock{stockNum}");
+			Label stockAvailability = stockFromGodot.GetNode<Label>($"Availability{stockNum}");
 
-			stockFromGodot.Text = Stocks.GetDBValue($"{stockNum}", 2);
+			stockBuyPrice.Position = new Vector2 (0 - 70, 0 + 70);
+			stockSellPrice.Position = new Vector2(0 + 100, 0 + 70);
+			buyStock.Position = new Vector2(0 - 85, 0 + 120);
+			sellStock.Position = new Vector2(0 + 100, 0 + 120);
+			stockAvailability.Position = new Vector2(0 + 40, 0 + 30);
 		}
 	}
 	public void UpdateStockDisplay()
@@ -72,7 +91,7 @@ public partial class Display : GridContainer
 			Label stockBuyPrice = stockFromGodot.GetNode<Label>($"BuyPrice{stockNum}");
 			Label stockSellPrice = stockFromGodot.GetNode<Label>($"SellPrice{stockNum}");
 
-			stockFromGodot.Text = Stocks.GetDBValue($"{stockNum}", 2);
+			stockFromGodot.Text = Stocks.GetDBValue($"{stockNum}", 1);
 			stockBuyPrice.Text = $"{Stocks.GetDBValue($"{stockNum}", 4)}";
 			stockSellPrice.Text = $"{Stocks.GetDBValue($"{stockNum}", 5)}";
 		}
