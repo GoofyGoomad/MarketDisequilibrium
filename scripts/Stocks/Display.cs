@@ -29,8 +29,9 @@ public partial class Display : GridContainer
 	{
 		int pageNum = 1;
 		for (int i = 1 * pageNum; i <= 6 * pageNum; i++)
-		{
-			Label godotStock = new Label();
+        {
+        	int stockId = i;
+            Label godotStock = new Label();
 			godotStock.Name = $"CurrentStock{i}";
 			godotStock.Text = Stocks.GetDBValue($"{i}", 1);
 			AddChild(godotStock);
@@ -48,18 +49,21 @@ public partial class Display : GridContainer
 
 			Button buyStock = new Button();
 			buyStock.Name = $"BuyStock{i}";
-			buyStock.Text = "Buy Stock";
-			godotStock.AddChild(buyStock);
+            buyStock.Text = "Buy Stock";
+            
+            buyStock.Pressed += () => Stocks.BuyStock(stockId, godotStock);
+            godotStock.AddChild(buyStock);
 			
 			Button sellStock = new Button();
 			sellStock.Name = $"SellStock{i}";
-			sellStock.Text = "Sell Stock";
-			godotStock.AddChild(sellStock);
+            sellStock.Text = "Sell Stock";
+            sellStock.Pressed += () => Stocks.SellStock(stockId, godotStock);
+            godotStock.AddChild(sellStock);
 			
-			Label stockAvailability = new Label();
-			stockAvailability.Name = $"Availability{i}";
-			stockAvailability.Text = "0";
-			godotStock.AddChild(stockAvailability);
+			Label stockAmount = new Label();
+			stockAmount.Name = $"Amount{i}";
+			stockAmount.Text = "0";
+			godotStock.AddChild(stockAmount);
 		}
 		GD.Print(GetChildren());
 		foreach(Label stockFromGodot in GetChildren())
@@ -71,13 +75,13 @@ public partial class Display : GridContainer
 			Label stockSellPrice = stockFromGodot.GetNode<Label>($"SellPrice{stockNum}");
 			Button buyStock = stockFromGodot.GetNode<Button>($"BuyStock{stockNum}");
 			Button sellStock = stockFromGodot.GetNode<Button>($"SellStock{stockNum}");
-			Label stockAvailability = stockFromGodot.GetNode<Label>($"Availability{stockNum}");
+			Label stockAmount = stockFromGodot.GetNode<Label>($"Amount{stockNum}");
 
 			stockBuyPrice.Position = new Vector2 (0 - 70, 0 + 70);
 			stockSellPrice.Position = new Vector2(0 + 100, 0 + 70);
 			buyStock.Position = new Vector2(0 - 85, 0 + 120);
 			sellStock.Position = new Vector2(0 + 100, 0 + 120);
-			stockAvailability.Position = new Vector2(0 + 40, 0 + 30);
+			stockAmount.Position = new Vector2(0 + 40, 0 + 30);
 		}
 	}
 	public void UpdateStockDisplay()

@@ -22,4 +22,5 @@ mono_crash.*.json
 *.sln
 .idea/
 
+.vscode/
 addons/godot_super-wakatime/

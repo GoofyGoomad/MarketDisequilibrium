@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
-using Microsoft.Data.Sqlite;
-using System.Data.SqlClient;
 using Godot;
+using Microsoft.Data.Sqlite;
 
 public partial class Stocks : Node
 {
@@ -29,7 +29,8 @@ public partial class Stocks : Node
 		Volatility VARCHAR(7) NOT NULL,
 		Buy_Price VARCHAR(100) NOT NULL,
 		Sell_Price VARCHAR(100) NOT NULL,
-		DividendPercent VARCHAR(10) NOT NULL
+		DividendPercent VARCHAR(10) NOT NULL,
+		Amount VARCHAR(255) NOT NULL
 		);");
 
         string[] stockFileList = Directory.GetFiles("config/stocks/", "*.cfg", SearchOption.AllDirectories);
@@ -47,15 +48,32 @@ public partial class Stocks : Node
             string dividendPercent = fileReader.ReadLine();
             
             fileReader.Close();
-            SqliteHelpers.ExecuteSQLCommand($"INSERT INTO Stocks VALUES ('{Stocks.availableStockId}', '{stockName}', '{stockCode}', '{volatility}', '{buyPrice}', '{sellPrice}', '{dividendPercent}');");
+            SqliteHelpers.ExecuteSQLCommand($"INSERT INTO Stocks VALUES ('{Stocks.availableStockId}', '{stockName}', '{stockCode}', '{volatility}', '{buyPrice}', '{sellPrice}', '{dividendPercent}', '0');");
         }
         EmitSignal(SignalName.StocksReady);
     }
 	public override void _Process(double delta)
 	{
-		// Called every frame. 'delta' is the elapsed time since the previous frame.
+        // Called every frame. 'delta' is the elapsed time since the previous frame.
     }
-	public static string GetDBValue(string id, int columnId)
+    public static void BuyStock(int stockId, Label godotStock)
+    {
+        int stockAmount = Int32.Parse(GetDBValue(stockId.ToString(), 7));
+        stockAmount++;
+        SetDBValue(stockId.ToString(), "Amount", stockAmount);
+        
+        godotStock.GetNode<Label>($"Amount{stockId}").Text = stockAmount.ToString();
+    }
+    public static void SellStock(int stockId, Label godotStock)
+    {
+        int stockAmount = Int32.Parse(GetDBValue(stockId.ToString(), 7));
+        stockAmount--;
+        SetDBValue(stockId.ToString(), "Amount", stockAmount);
+        
+        godotStock.GetNode<Label>($"Amount{stockId}").Text = stockAmount.ToString();
+    }
+
+    public static string GetDBValue(string id, int columnId)
     {
 		using var connection = new SqliteConnection("Data Source=temp-storage/stocks.sqlite3");
 		connection.Open();

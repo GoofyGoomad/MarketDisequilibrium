@@ -29,7 +29,7 @@ position = Vector2(1835, -473)
 rect = Rect2(-2698, -9, 1689, 922)
 enable_node_path = NodePath("Display")
 
-[node name="Display" type="GridContainer" parent="Stocks/DisplayEnabler" unique_id=1987266093 node_paths=PackedStringArray("_stocksNode", "_stockUpdaterNode")]
+[node name="Display" type="GridContainer" parent="Stocks/DisplayEnabler" unique_id=1987266093 node_paths=PackedStringArray("_stocksNode")]
 custom_minimum_size = Vector2(100, 20)
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,7 +47,6 @@ theme_override_constants/v_separation = 550
 columns = 3
 script = ExtResource("3_v4dfv")
 _stocksNode = NodePath("../..")
-_stockUpdaterNode = NodePath("../../StockUpdater")
 
 [node name="DevTools" type="Node2D" parent="." unique_id=968751888]
 
