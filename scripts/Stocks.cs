@@ -26,9 +26,10 @@ public partial class Stocks : Node
 		Id int PRIMARY KEY, 
 		Name VARCHAR(10) NOT NULL,
 		Code VARCHAR(15) NOT NULL,
-		Volatility VARCHAR(6) NOT NULL,
+		Volatility VARCHAR(7) NOT NULL,
 		Buy_Price VARCHAR(100) NOT NULL,
-		Sell_Price VARCHAR(100) NOT NULL
+		Sell_Price VARCHAR(100) NOT NULL,
+		DividendPercent VARCHAR(10) NOT NULL
 		);");
 
         string[] stockFileList = Directory.GetFiles("config/stocks/", "*.cfg", SearchOption.AllDirectories);
@@ -40,11 +41,13 @@ public partial class Stocks : Node
             StreamReader fileReader = new StreamReader(stockFile);
             string stockName = fileReader.ReadLine();
             string stockCode = fileReader.ReadLine();
-            int volatility = Int32.Parse(fileReader.ReadLine());
-            int buyPrice = Int32.Parse(fileReader.ReadLine());
-            int sellPrice = Int32.Parse(fileReader.ReadLine());
+            string volatility = fileReader.ReadLine();
+            string buyPrice = fileReader.ReadLine();
+            string sellPrice = fileReader.ReadLine();
+            string dividendPercent = fileReader.ReadLine();
+            
             fileReader.Close();
-            SqliteHelpers.ExecuteSQLCommand($"INSERT INTO Stocks VALUES ('{Stocks.availableStockId}', '{stockName}', '{stockCode}', '{volatility}', '{buyPrice}', '{sellPrice}');");
+            SqliteHelpers.ExecuteSQLCommand($"INSERT INTO Stocks VALUES ('{Stocks.availableStockId}', '{stockName}', '{stockCode}', '{volatility}', '{buyPrice}', '{sellPrice}', '{dividendPercent}');");
         }
         EmitSignal(SignalName.StocksReady);
     }
