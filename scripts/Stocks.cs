@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Microsoft.Data.Sqlite;
+using System.Data.SqlClient;
 using Godot;
 
 public partial class Stocks : Node
@@ -25,9 +26,9 @@ public partial class Stocks : Node
 		Id int PRIMARY KEY, 
 		Name VARCHAR(10) NOT NULL,
 		Code VARCHAR(15) NOT NULL,
-		Volatility INT(3) NOT NULL,
-		Buy_Price INT(255) NOT NULL,
-		Sell_Price INT(255) NOT NULL
+		Volatility VARCHAR(6) NOT NULL,
+		Buy_Price VARCHAR(100) NOT NULL,
+		Sell_Price VARCHAR(100) NOT NULL
 		);");
 
         string[] stockFileList = Directory.GetFiles("config/stocks/", "*.cfg", SearchOption.AllDirectories);
@@ -44,10 +45,8 @@ public partial class Stocks : Node
             int sellPrice = Int32.Parse(fileReader.ReadLine());
             fileReader.Close();
             SqliteHelpers.ExecuteSQLCommand($"INSERT INTO Stocks VALUES ('{Stocks.availableStockId}', '{stockName}', '{stockCode}', '{volatility}', '{buyPrice}', '{sellPrice}');");
-
         }
-		EmitSignal(SignalName.StocksReady);
-
+        EmitSignal(SignalName.StocksReady);
     }
 	public override void _Process(double delta)
 	{
@@ -58,14 +57,17 @@ public partial class Stocks : Node
 		using var connection = new SqliteConnection("Data Source=temp-storage/stocks.sqlite3");
 		connection.Open();
 		using var sqlCommand = new SqliteCommand($"SELECT * FROM Stocks WHERE Id='{id}'", connection);
-		var sqlOutput = sqlCommand.ExecuteReader();
-		return sqlOutput.GetValue(columnId).ToString();
+        var sqlOutput = sqlCommand.ExecuteReader();
+
+        sqlOutput.Read(); // Need to do Read() or else it won't have the proper output
+        return sqlOutput.GetValue(columnId).ToString();
     }
-    public static void SetDBValue(string id, int column)
+    public static void SetDBValue(string id, string column, double value)
     {
 		using var connection = new SqliteConnection("Data Source=temp-storage/stocks.sqlite3");
 		connection.Open();
-		using var sqlCommand = new SqliteCommand($"UPDATE Stocks SET Stocks WHERE Id='{id}'", connection);
-		var sqlOutput = sqlCommand.ExecuteReader();
+		using var sqlCommand = new SqliteCommand($"UPDATE Stocks SET {column}='{value}' WHERE Id='{id}'", connection);
+        var sqlOutput = sqlCommand.ExecuteReader();
+        //connection.Close();
 	}
 }
