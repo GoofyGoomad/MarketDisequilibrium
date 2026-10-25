@@ -21,11 +21,12 @@ public partial class User : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		UpdateBalance(GetNode<Label>("/root/Game/BalanceDisplay"));
 	}
 	public void UpdateBalance(Label _balanceDisplay)
 	{
 		SqliteHelpers.ExecuteSQLCommand($"UPDATE CurrentUser SET Balance='{User.balance}' WHERE Id='1'");
-		//var _sceneTree = this.GetTree().Root;
+		
 		_balanceDisplay.Text = Double.Round(User.balance, 3).ToString();
 	}
 }

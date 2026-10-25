@@ -74,11 +74,20 @@ public partial class Stocks : Node
     }
     public static void SellStock(int stockId, Label godotStock)
     {
+        double sellPrice = Convert.ToDouble(GetDBValue(stockId.ToString(), 5));
         int stockAmount = Int32.Parse(GetDBValue(stockId.ToString(), 7));
-        stockAmount--;
-        SetDBValue(stockId.ToString(), "Amount", stockAmount);
-        
-        godotStock.GetNode<Label>($"Amount{stockId}").Text = stockAmount.ToString();
+        if (stockAmount >= 1)
+        {
+            User.balance += sellPrice;
+            var _user = new User();
+            _user.UpdateBalance(godotStock.GetNode<Label>("/root/Game/BalanceDisplay"));
+            
+            stockAmount--;
+            SetDBValue(stockId.ToString(), "Amount", stockAmount);
+            
+            godotStock.GetNode<Label>($"Amount{stockId}").Text = stockAmount.ToString();
+            //User.Up
+        }
     }
 
     public static string GetDBValue(string id, int columnId)
@@ -87,8 +96,8 @@ public partial class Stocks : Node
 		connection.Open();
 		using var sqlCommand = new SqliteCommand($"SELECT * FROM Stocks WHERE Id='{id}'", connection);
         var sqlOutput = sqlCommand.ExecuteReader();
-
         sqlOutput.Read(); // Need to do Read() or else it won't have the proper output
+        
         return sqlOutput.GetValue(columnId).ToString();
     }
     public static void SetDBValue(string id, string column, double value)
