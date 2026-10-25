@@ -58,8 +58,12 @@ public partial class Stocks : Node
     }
     public static void BuyStock(int stockId, Label godotStock)
     {
-        if (User.balance >= Int32.Parse(GetDBValue(stockId.ToString(), 4)))
+        double stockPrice = Convert.ToDouble(GetDBValue(stockId.ToString(), 4));
+        if (User.balance >= stockPrice)
         {
+            User.balance -= stockPrice;
+            var _user = new User();
+            _user.UpdateBalance(godotStock.GetNode<Label>("/root/Game/BalanceDisplay"));
             int stockAmount = Int32.Parse(GetDBValue(stockId.ToString(), 7));
             stockAmount++;
             SetDBValue(stockId.ToString(), "Amount", stockAmount);
