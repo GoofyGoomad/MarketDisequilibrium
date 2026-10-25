@@ -3,11 +3,20 @@
 [ext_resource type="Script" uid="uid://t3hdq6r05vnq" path="res://scripts/Main.cs" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cpt8xt2lhcewk" path="res://scripts/Stocks.cs" id="1_4tysn"]
 [ext_resource type="Script" uid="uid://dh4iqc0v8770q" path="res://scripts/Stocks/StockUpdater.cs" id="2_2bann"]
+[ext_resource type="Script" uid="uid://quws8k6dbwic" path="res://scripts/SaveButton.cs" id="2_7mycd"]
 [ext_resource type="Script" uid="uid://j86ofn63c4xn" path="res://scripts/User.cs" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://dhtrkaj5qsay3" path="res://scripts/Stocks/Display.cs" id="3_v4dfv"]
 
 [node name="Game" type="Node2D" unique_id=72649775]
 script = ExtResource("1_1bvp3")
+
+[node name="SaveButton" type="Button" parent="." unique_id=573309448]
+offset_left = 790.0
+offset_top = 468.0
+offset_right = 959.0
+offset_bottom = 542.0
+text = "Save"
+script = ExtResource("2_7mycd")
 
 [node name="User" type="Node2D" parent="." unique_id=1979587244]
 script = ExtResource("2_lquwl")

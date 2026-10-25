@@ -69,9 +69,6 @@ public partial class StockUpdater : Timer
             while (sqlOutput.Read())
             {
                 User.balance += ((Convert.ToDouble(sqlOutput[5]) / 100) * Convert.ToDouble(sqlOutput[6]) * Convert.ToDouble(sqlOutput[7]));
-                //var _user = new User();
-                //_user.UpdateBalance(this.GetNode<Label>("/root/Game/BalanceDisplay"));
-                //GD.Print(sqlOutput[0]);
             }
         }
     }
