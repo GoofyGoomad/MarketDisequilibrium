@@ -17,9 +17,6 @@ public partial class Display : GridContainer
 	{
 		_stocksNode.StocksReady += DisplayStocks;
 		_stockUpdaterNode.UpdateStocks += UpdateStockDisplay;
-		
-		
-		//GetNode<Label>("CurrentStock6").QueueFree();
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -29,9 +26,9 @@ public partial class Display : GridContainer
 	{
 		int pageNum = 1;
 		for (int i = 1 * pageNum; i <= 6 * pageNum; i++)
-        {
-        	int stockId = i;
-            Label godotStock = new Label();
+		{
+			int stockId = i;
+			Label godotStock = new Label();
 			godotStock.Name = $"CurrentStock{i}";
 			godotStock.Text = Stocks.GetDBValue($"{i}", 1);
 			AddChild(godotStock);
@@ -49,16 +46,16 @@ public partial class Display : GridContainer
 
 			Button buyStock = new Button();
 			buyStock.Name = $"BuyStock{i}";
-            buyStock.Text = "Buy Stock";
-            
-            buyStock.Pressed += () => Stocks.BuyStock(stockId, godotStock);
-            godotStock.AddChild(buyStock);
+			buyStock.Text = "Buy Stock";
+			
+			buyStock.Pressed += () => Stocks.BuyStock(stockId, godotStock);
+			godotStock.AddChild(buyStock);
 			
 			Button sellStock = new Button();
 			sellStock.Name = $"SellStock{i}";
-            sellStock.Text = "Sell Stock";
-            sellStock.Pressed += () => Stocks.SellStock(stockId, godotStock);
-            godotStock.AddChild(sellStock);
+			sellStock.Text = "Sell Stock";
+			sellStock.Pressed += () => Stocks.SellStock(stockId, godotStock);
+			godotStock.AddChild(sellStock);
 			
 			Label stockAmount = new Label();
 			stockAmount.Name = $"Amount{i}";

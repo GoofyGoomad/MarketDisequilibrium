@@ -3,10 +3,14 @@
 [ext_resource type="Script" uid="uid://t3hdq6r05vnq" path="res://scripts/Main.cs" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://cpt8xt2lhcewk" path="res://scripts/Stocks.cs" id="1_4tysn"]
 [ext_resource type="Script" uid="uid://dh4iqc0v8770q" path="res://scripts/Stocks/StockUpdater.cs" id="2_2bann"]
+[ext_resource type="Script" uid="uid://j86ofn63c4xn" path="res://scripts/User.cs" id="2_lquwl"]
 [ext_resource type="Script" uid="uid://dhtrkaj5qsay3" path="res://scripts/Stocks/Display.cs" id="3_v4dfv"]
 
 [node name="Game" type="Node2D" unique_id=72649775]
 script = ExtResource("1_1bvp3")
+
+[node name="User" type="Node2D" parent="." unique_id=1979587244]
+script = ExtResource("2_lquwl")
 
 [node name="BalanceDisplay" type="Label" parent="." unique_id=1236639591]
 offset_left = -75.0
@@ -29,7 +33,7 @@ position = Vector2(1835, -473)
 rect = Rect2(-2698, -9, 1689, 922)
 enable_node_path = NodePath("Display")
 
-[node name="Display" type="GridContainer" parent="Stocks/DisplayEnabler" unique_id=1987266093 node_paths=PackedStringArray("_stocksNode")]
+[node name="Display" type="GridContainer" parent="Stocks/DisplayEnabler" unique_id=1987266093 node_paths=PackedStringArray("_stocksNode", "_stockUpdaterNode")]
 custom_minimum_size = Vector2(100, 20)
 anchors_preset = 15
 anchor_right = 1.0
@@ -47,6 +51,7 @@ theme_override_constants/v_separation = 550
 columns = 3
 script = ExtResource("3_v4dfv")
 _stocksNode = NodePath("../..")
+_stockUpdaterNode = NodePath("../../StockUpdater")
 
 [node name="DevTools" type="Node2D" parent="." unique_id=968751888]
 

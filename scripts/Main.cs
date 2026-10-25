@@ -10,7 +10,6 @@ public partial class Main : Node2D
 	public override void _Ready()
 	{
         GetNode<Camera2D>("MainCamera").Offset = new Vector2(0, 0);
-        GetNode<Label>("BalanceDisplay").Text = "0.000";
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,14 +53,14 @@ public static class SqliteHelpers
             GD.Print(theError.Message);
 		}
     }
-    public static string GetValue(string table, string column, string value)
+    public static string GetValue(string table, string column, string value, int columnId)
     {
         using var connection = new SqliteConnection("Data Source=temp-storage/stocks.sqlite3");
         connection.Open();
         using var sqlCommand = new SqliteCommand($"SELECT * FROM {table} WHERE {column}='{value}'", connection);
         var sqlOutput = sqlCommand.ExecuteReader();
         GD.Print(sqlOutput.Read());
-        GD.Print(sqlOutput.GetValue(1));
-        return sqlOutput.GetValue(1).ToString();
+        
+        return sqlOutput.GetValue(columnId).ToString();
     }
 }

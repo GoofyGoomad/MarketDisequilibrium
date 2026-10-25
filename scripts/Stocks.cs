@@ -58,11 +58,15 @@ public partial class Stocks : Node
     }
     public static void BuyStock(int stockId, Label godotStock)
     {
-        int stockAmount = Int32.Parse(GetDBValue(stockId.ToString(), 7));
-        stockAmount++;
-        SetDBValue(stockId.ToString(), "Amount", stockAmount);
-        
-        godotStock.GetNode<Label>($"Amount{stockId}").Text = stockAmount.ToString();
+        if (User.balance >= Int32.Parse(GetDBValue(stockId.ToString(), 4)))
+        {
+            int stockAmount = Int32.Parse(GetDBValue(stockId.ToString(), 7));
+            stockAmount++;
+            SetDBValue(stockId.ToString(), "Amount", stockAmount);
+            
+            godotStock.GetNode<Label>($"Amount{stockId}").Text = stockAmount.ToString();
+            //User.Up
+        }
     }
     public static void SellStock(int stockId, Label godotStock)
     {
