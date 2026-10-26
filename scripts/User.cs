@@ -3,11 +3,14 @@ using Godot;
 
 public partial class User : Node2D
 {
+	[Export]
+	private Stocks _stocksNode;
 	// Called when the node enters the scene tree for the first time.
 	public static double balance = Convert.ToDouble(SqliteHelpers.GetValue("CurrentUser", "Id", "1", 2));
 	
 	public override void _Ready()
 	{
+		_stocksNode.StocksReady += LoadConfig;
 		SqliteHelpers.ExecuteSQLCommand("DROP TABLE IF EXISTS CurrentUser");
 		SqliteHelpers.ExecuteSQLCommand(@"CREATE TABLE CurrentUser (
 		Id int PRIMARY KEY,
@@ -29,8 +32,33 @@ public partial class User : Node2D
 		
 		_balanceDisplay.Text = Double.Round(User.balance, 3).ToString();
 	}
-}
-public class UserCommands
-{
-	
+	public void LoadConfig()
+	{
+		var config = new ConfigFile();
+
+		// Load data from a file.
+		Error err = config.Load("user://saves/stocks.cfg");
+
+		// If the file didn't load, ignore it.
+		if (err != Error.Ok)
+		{
+			return;
+		}
+
+		foreach (String stock in config.GetSections())
+		{
+			var stockCode = (String)config.GetValue(stock, "StockCode");
+			var buyPrice = (String)config.GetValue(stock, "BuyPrice");
+			var sellPrice = (String)config.GetValue(stock, "SellPrice");
+			var amount = (String)config.GetValue(stock, "Amount");
+			try
+			{
+				SqliteHelpers.ExecuteSQLCommand($"UPDATE Stocks SET Buy_Price='{buyPrice}' Sell_Price='{sellPrice}' Amount='{amount}' WHERE Code='{stockCode}'");
+			}
+			catch (Exception e)
+			{
+				GD.Print($"Stock code {stockCode} not found.");
+			}
+		}
+	}
 }

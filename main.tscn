@@ -18,8 +18,9 @@ offset_bottom = 542.0
 text = "Save"
 script = ExtResource("2_7mycd")
 
-[node name="User" type="Node2D" parent="." unique_id=1979587244]
+[node name="User" type="Node2D" parent="." unique_id=1979587244 node_paths=PackedStringArray("_stocksNode")]
 script = ExtResource("2_lquwl")
+_stocksNode = NodePath("../Stocks")
 
 [node name="BalanceDisplay" type="Label" parent="." unique_id=1236639591]
 offset_left = -75.0
