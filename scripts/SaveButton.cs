@@ -21,15 +21,32 @@ public partial class SaveButton : Button
 		using var sqlCommand = new SqliteCommand($"SELECT * FROM CurrentUser", connection);
 		using (var sqlOutput = sqlCommand.ExecuteReader())
 		{
+			var config = new ConfigFile();
 			while (sqlOutput.Read())
 			{
-				var config = new ConfigFile();
 				string userName = sqlOutput[1].ToString();
 				string balance = sqlOutput[2].ToString();
 				config.SetValue(userName, "Balance", balance);
-				config.Save("res://saves/the-save.cfg");
 				break;
 			}
+			config.Save("res://saves/user.cfg");
+		}
+		using var sqlCommand2 = new SqliteCommand($"SELECT * FROM Stocks", connection);
+		using (var sqlOutput = sqlCommand2.ExecuteReader())
+		{
+			var config = new ConfigFile();
+			while (sqlOutput.Read())
+			{
+				string stockCode = sqlOutput[2].ToString();
+				string buyPrice = sqlOutput[4].ToString();
+				string sellPrice = sqlOutput[5].ToString();
+				string amount = sqlOutput[7].ToString();
+				config.SetValue(stockCode, "StockCode", stockCode);
+				config.SetValue(stockCode, "BuyPrice", buyPrice);
+				config.SetValue(stockCode, "SellPrice", sellPrice);
+				config.SetValue(stockCode, "Amount", amount);
+			}
+			config.Save("res://saves/stocks.cfg");
 		}
 	}
 }
