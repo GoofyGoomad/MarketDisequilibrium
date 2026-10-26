@@ -23,9 +23,11 @@ public partial class SaveButton : Button
 		{
 			while (sqlOutput.Read())
 			{
+				var config = new ConfigFile();
 				string userName = sqlOutput[1].ToString();
 				string balance = sqlOutput[2].ToString();
-				GD.Print(userName + balance);
+				config.SetValue(userName, "Balance", balance);
+				config.Save("res://saves/the-save.cfg");
 				break;
 			}
 		}
