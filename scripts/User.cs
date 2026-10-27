@@ -37,7 +37,7 @@ public partial class User : Node2D
 		var config = new ConfigFile();
 
 		// Load data from a file.
-		Error err = config.Load("user://saves/stocks.cfg");
+		Error err = config.Load("res://saves/stocks.cfg");
 
 		// If the file didn't load, ignore it.
 		if (err != Error.Ok)
@@ -53,12 +53,15 @@ public partial class User : Node2D
 			var amount = (String)config.GetValue(stock, "Amount");
 			try
 			{
-				SqliteHelpers.ExecuteSQLCommand($"UPDATE Stocks SET Buy_Price='{buyPrice}' Sell_Price='{sellPrice}' Amount='{amount}' WHERE Code='{stockCode}'");
+				SqliteHelpers.ExecuteSQLCommand($"UPDATE Stocks SET Buy_Price='{buyPrice}', Sell_Price='{sellPrice}', Amount='{amount}' WHERE Code='{stockCode}'");
+				GD.Print($"Stock code {stockCode} loaded successfully.");
 			}
 			catch (Exception e)
 			{
 				GD.Print($"Stock code {stockCode} not found.");
 			}
+			var _display = new Display();
+			_display.UpdateStockDisplay();
 		}
 	}
 }

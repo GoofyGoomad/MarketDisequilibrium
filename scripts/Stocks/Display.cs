@@ -83,6 +83,7 @@ public partial class Display : GridContainer
 	}
 	public void UpdateStockDisplay()
 	{
+		GD.Print("Updating stock display...");
 		foreach(Label stockFromGodot in GetChildren())
 		{
 			
