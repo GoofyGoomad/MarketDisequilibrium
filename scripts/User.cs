@@ -60,8 +60,6 @@ public partial class User : Node2D
 			{
 				GD.Print($"Stock code {stockCode} not found.");
 			}
-			var _display = new Display();
-			_display.UpdateStockDisplay();
 		}
 	}
 }

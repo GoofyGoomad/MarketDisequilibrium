@@ -21,6 +21,7 @@ public partial class Display : GridContainer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		UpdateStockDisplay();
 	}
 	public void DisplayStocks()
 	{
@@ -83,7 +84,6 @@ public partial class Display : GridContainer
 	}
 	public void UpdateStockDisplay()
 	{
-		GD.Print("Updating stock display...");
 		foreach(Label stockFromGodot in GetChildren())
 		{
 			
@@ -92,10 +92,12 @@ public partial class Display : GridContainer
 			
 			Label stockBuyPrice = stockFromGodot.GetNode<Label>($"BuyPrice{stockNum}");
 			Label stockSellPrice = stockFromGodot.GetNode<Label>($"SellPrice{stockNum}");
+			Label stockAmount = stockFromGodot.GetNode<Label>($"Amount{stockNum}");
 
-			stockFromGodot.Text = Stocks.GetDBValue($"{stockNum}", 1);
-			stockBuyPrice.Text = $"{Stocks.GetDBValue($"{stockNum}", 4)}";
-			stockSellPrice.Text = $"{Stocks.GetDBValue($"{stockNum}", 5)}";
+			stockFromGodot.Text = Stocks.GetDBValue(stockNum, 1);
+			stockBuyPrice.Text = Stocks.GetDBValue(stockNum, 4);
+			stockSellPrice.Text = Stocks.GetDBValue(stockNum, 5);
+			stockAmount.Text = Stocks.GetDBValue(stockNum, 7);
 		}
 	}
 }
