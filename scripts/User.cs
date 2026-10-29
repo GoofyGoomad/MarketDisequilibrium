@@ -10,7 +10,8 @@ public partial class User : Node2D
 	
 	public override void _Ready()
 	{
-		_stocksNode.StocksReady += LoadConfig;
+		_stocksNode.StocksReady += LoadUserConfig;
+		_stocksNode.StocksReady += LoadStocksConfig;
 		SqliteHelpers.ExecuteSQLCommand("DROP TABLE IF EXISTS CurrentUser");
 		SqliteHelpers.ExecuteSQLCommand(@"CREATE TABLE CurrentUser (
 		Id int PRIMARY KEY,
@@ -32,7 +33,18 @@ public partial class User : Node2D
 		
 		_balanceDisplay.Text = Double.Round(User.balance, 3).ToString();
 	}
-	public void LoadConfig()
+	public void LoadUserConfig()
+	{
+		var config = new ConfigFile();
+		Error err = config.Load("res://saves/user.cfg");
+		if (err != Error.Ok)
+		{
+			return;
+		}
+		User.balance = (double)config.GetValue("test", "Balance");
+		UpdateBalance(GetNode<Label>("/root/Game/BalanceDisplay"));
+	}
+	public void LoadStocksConfig()
 	{
 		var config = new ConfigFile();
 

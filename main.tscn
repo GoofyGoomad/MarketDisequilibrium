@@ -35,6 +35,7 @@ offset = Vector2(1920, 0)
 script = ExtResource("1_4tysn")
 
 [node name="StockUpdater" type="Timer" parent="Stocks" unique_id=94627591]
+wait_time = 5.0
 autostart = true
 script = ExtResource("2_2bann")
 
